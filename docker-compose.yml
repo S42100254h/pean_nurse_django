@@ -1,0 +1,18 @@
+version: "3.2"
+
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0
+    volumes:
+      - mysql-datavolume:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: pean_nurse_development
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+
+volumes:
+  mysql-datavolume:
+    driver: local
