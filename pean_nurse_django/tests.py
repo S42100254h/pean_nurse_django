@@ -17,6 +17,12 @@ class UserTests(TestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['name'], self.model.name)
 
+    def test_retrieve(self):
+        url = reverse('user-detail', args=[self.model.id])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], self.model.name)
+
     def test_create(self):
         data = {'name': 'neko', 'email': 'neko@gmail.com'}
         url = reverse('user-list')
