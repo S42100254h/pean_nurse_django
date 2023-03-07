@@ -10,6 +10,13 @@ class UserTests(TestCase):
         self.client = APIClient()
         self.model = User.objects.create(name='dummy', email='dummy@example.com')
 
+    def test_list(self):
+        url = reverse('user-list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['name'], self.model.name)
+
     def test_create(self):
         data = {'name': 'neko', 'email': 'neko@gmail.com'}
         url = reverse('user-list')
