@@ -24,13 +24,15 @@ class UserViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None):
-        user = get_object_or_404(User.objects.all(), pk=pk)
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
         serializer = UserSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_200_OK)
 
     def destroy(self, request, pk=None):
-        user = get_object_or_404(User.objects.all(), pk=pk)
+        queryset = User.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
         user.delete()
-        return Response(status=status.HTTP_204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
