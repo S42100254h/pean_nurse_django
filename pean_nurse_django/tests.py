@@ -37,3 +37,9 @@ class UserTests(TestCase):
         response = self.client.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(User.objects.get(id=self.model.id).name, 'cat')
+
+    def test_destroy(self):
+        url = reverse('user-detail', args=[self.model.id])
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(User.objects.count(), 0)
