@@ -137,3 +137,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'pean_nurse_django.User'
+
+AUTHENTICATION_BACKENDS = [
+    'pean_nurse_django.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
